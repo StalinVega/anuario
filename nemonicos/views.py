@@ -1,8 +1,9 @@
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status, viewsets
+import json
 # Serializers
-from .serializers import Estaciones_Serializer
+from .serializers import Humedad_Serializer
 from utils.database import searchPostgres
 from rest_framework.renderers import JSONRenderer
 # Swagger
@@ -10,7 +11,7 @@ from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 
 
-class GetAllEstaciones(viewsets.GenericViewSet):
+class GetHumedad(viewsets.GenericViewSet):
 
     # @swagger_auto_schema(
     #     operation_description="Obtiene información de acceso.",
@@ -39,14 +40,16 @@ class GetAllEstaciones(viewsets.GenericViewSet):
     #         ),
     #     },
     # )
-    @action(detail=False, methods=['GET'])
-    def estacion(self, request):
-
-        query = f"SELECT codigo, punto_obs as nombre, id_estacion, id_provincia::Integer AS id_provincia FROM administrativo.vta_estaciones WHERE codigo LIKE 'M%';"
+    @action(detail=False, methods=['POST'])
+    def humedadMax(self, request):
+        data = json.loads(request.body)
+        id_estacion = data.get('id_estacion')
+        anio=data.get('anio')
+        query = f"SELECT * FROM mensuales.vta_9111M WHERE id_estacion = {id_estacion} AND anio = {anio};"
 
         acceso = searchPostgres(query)
         # Convierte ReturnList en una lista de Python
-        python_list = [Estaciones_Serializer(
+        python_list = [Humedad_Serializer(
             instance).data for instance in acceso]
         if len(python_list) == 0:
             data = {

@@ -15,37 +15,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
-
-from drf_yasg.views import get_schema_view
-from drf_yasg import openapi
-
-
-schema_view = get_schema_view(
-    openapi.Info(
-        title="Creación de ficha API",
-        default_version='v1',
-        description='Uso El backend proporciona una API REST ',
-        contact=openapi.Contact(email="stalinvega18@gmail.com"),
-        lilicense=openapi.License(name="MIT License"),
-    ),
-    public=True,
-)
+from django.urls import path,include
 
 urlpatterns = [
-    path('api_ficha_crea/admin/', admin.site.urls),
-    path('api_ficha_crea/',include('tipo_estacion.urls')),
-    path('api_ficha_crea/',include('propietarios.urls')),
-    path('api_ficha_crea/',include('ubicacion.urls')),
-    path('api_ficha_crea/',include('accesos.urls')),
-    path('api_ficha_crea/',include('tipo_observacion.urls')),
-    path('api_ficha_crea/',include('tipo_estacion.urls')),
-    path('api_ficha_crea/',include('estado_estaciones.urls')),
-    path('api_ficha_crea/',include('puntos_observacion.urls')),
-    path('api_ficha_crea/',include('estaciones.urls')),
-    # Rutas para Swagger
-    path('api_ficha_crea/docs/', schema_view.with_ui('swagger',
-         cache_timeout=0), name='schema-swagger-ui'),
-    path('api_ficha_crea/redocs/', schema_view.with_ui('redoc',
-         cache_timeout=0), name='schema-redoc'),
+    path('admin/', admin.site.urls),
+    path('api_anuario/',include('estaciones.urls')),
+    path('api_anuario/',include('nemonicos.urls')),
 ]

@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import configparser
-
 # instantiate
 config = configparser.ConfigParser()
 
@@ -27,15 +26,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-gwr)d1g1$90kahsazb=tascd^0%6-(c@+o#n!tbovrhxps)+b*'
+SECRET_KEY = 'django-insecure-)447q-ruu3x+f4#h#k=n*!gxi-#dn%n70baiz=n1oz5-6lgi@g'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# If this is used then `CORS_ALLOWED_ORIGINS` will not have any effect
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOWED_ORIGINS = ['http://157.100.136.81:4200']
+# CORS_ALLOWED_ORIGINS = ['http://157.100.136.81:4200']
 ALLOWED_HOSTS = ['*']
 
 
@@ -51,14 +49,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_yasg',
     'main',
-    'tipo_estacion',
-    'tipo_observacion',
-    'propietarios',
-    'ubicacion',
-    'accesos',
-    'puntos_observacion',
     'estaciones',
-    'estado_estaciones',
+    'nemonicos',
     'corsheaders',
 ]
 
@@ -108,6 +100,9 @@ TEMPLATES = [
 WSGI_APPLICATION = 'main.wsgi.application'
 
 
+# Database
+# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+
 # configuracion Base de datos Postgres
 DATABASES = {
     "default": {
@@ -119,7 +114,6 @@ DATABASES = {
         "PASSWORD": config.get('DBPOSTGRES', 'PASSWORD'),
     }
 }
-
 
 
 # Password validation
@@ -153,10 +147,11 @@ USE_I18N = True
 USE_TZ = True
 
 
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-# STATIC_URL = 'static/'
+STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
